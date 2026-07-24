@@ -127,9 +127,16 @@ void AfficheurOLED::print(
     display.print(buffer);
 }
 
-void AfficheurOLED::println(const char *texte)
+void AfficheurOLED::println(const char *texte, ...)
 {
-    display.println(texte);
+    char buffer[32];
+
+    va_list args;
+    va_start(args, texte);
+    vsnprintf(buffer, sizeof(buffer), texte, args);
+    va_end(args);
+
+    display.println(buffer);
 }
 
 void AfficheurOLED::drawLine(uint8_t xd, uint8_t yd, uint8_t xf, uint8_t yf)
