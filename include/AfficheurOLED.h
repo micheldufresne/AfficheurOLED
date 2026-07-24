@@ -19,7 +19,7 @@ class AfficheurOLED
     public:
         AfficheurOLED();
 
-        void initialiser(uint16_t dureeRefresh);
+        void initialiser();
 
         void afficheMessageCentre(const char *message);
         void afficheMessageCentre(const char *message, const char *format, ...);

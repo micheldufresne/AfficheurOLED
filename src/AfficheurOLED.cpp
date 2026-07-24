@@ -5,7 +5,7 @@ AfficheurOLED::AfficheurOLED()
 {
 }
 
-void AfficheurOLED::initialiser(uint16_t dureeRefresh)
+void AfficheurOLED::initialiser()
 {
     display.begin(OLED_I2C_ADDRESS, true);
     display.clearDisplay();
