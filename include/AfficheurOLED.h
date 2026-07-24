@@ -24,20 +24,23 @@ class AfficheurOLED
         void afficheMessageCentre(const char *message);
         void afficheMessageCentre(const char *message, const char *format, ...);
         void afficheDeuxLignesCentrees(const char *ligne1, const char *ligne2);
-
         void clear();
 
-        void AfficheurOLED::afficherTexte(
+        void afficherTexte(
             uint8_t taille,
             uint8_t x,
             uint8_t y,
-            const char *texte);
-
+            const char *format,
+            ...);
         
         void setCursor(uint8_t x, uint8_t y);
         void setTextSize(uint8_t taille);
-        void print(const char *texte);
-        void afficher();
+        void AfficheurOLED::print(
+            const char *format,
+            ...);
+        void println(const char *texte);
+        void drawLine(uint8_t xd, uint8_t yd, uint8_t xf, uint8_t yf);
+        void flush();
 };
 
 /*

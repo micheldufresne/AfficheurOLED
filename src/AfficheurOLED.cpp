@@ -85,16 +85,23 @@ void AfficheurOLED::afficherTexte(
     uint8_t taille,
     uint8_t x,
     uint8_t y,
-    const char *texte)
+    const char *format,
+    ...)
 {
-    display.clearDisplay();
+    char buffer[32];
+
+    va_list args;
+    va_start(args, format);
+    vsnprintf(buffer, sizeof(buffer), format, args);
+    va_end(args);
 
     display.setTextSize(taille);
     display.setCursor(x, y);
-    display.print(texte);
-
-    display.display();
+    display.print(buffer);
 }
+// exemple : oled.afficherTexte(2, 0, 0, "Température : %.1f°", temperature);
+// ou bien : oled.afficherTexte(1, 0, 16, "Puissance : %d W", puissance);
+// ou encore : oled.afficherTexte(1, 0, 32, "Mode : %s", mode == AUTO ? "Auto" : "Manuel");
 
 void AfficheurOLED::setCursor(uint8_t x, uint8_t y)
 {
@@ -106,12 +113,31 @@ void AfficheurOLED::setTextSize(uint8_t taille)
     display.setTextSize(taille);
 }
 
-void AfficheurOLED::print(const char *texte)
+void AfficheurOLED::print(
+    const char *format,
+    ...)
 {
-    display.print(texte);
+    char buffer[32];
+
+    va_list args;
+    va_start(args, format);
+    vsnprintf(buffer, sizeof(buffer), format, args);
+    va_end(args);
+
+    display.print(buffer);
 }
 
-void AfficheurOLED::afficher()
+void AfficheurOLED::println(const char *texte)
+{
+    display.println(texte);
+}
+
+void drawLine(uint8_t xd, uint8_t yd, uint8_t xf, uint8_t yf)
+{
+    display.drawLine(xd,yd,xf,yf,SH110X_WHITE);
+}
+
+void AfficheurOLED::flush()
 {
     display.display();
 }
