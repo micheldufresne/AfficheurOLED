@@ -7,9 +7,14 @@ AfficheurOLED::AfficheurOLED()
 
 void AfficheurOLED::initialiser()
 {
-    display.begin(OLED_I2C_ADDRESS, true);
+    if (!display.begin(OLED_I2C_ADDRESS, true))
+    {
+        Serial.println("Écran SH1106 non détecté !");
+        while (1)
+            ;
+    }
     display.clearDisplay();
-
+    display.setTextColor(SH110X_WHITE);
 }
 
 void AfficheurOLED::afficheMessageCentre(const char *message,
