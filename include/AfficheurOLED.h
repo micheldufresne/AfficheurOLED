@@ -35,9 +35,7 @@ class AfficheurOLED
         
         void setCursor(uint8_t x, uint8_t y);
         void setTextSize(uint8_t taille);
-        void AfficheurOLED::print(
-            const char *format,
-            ...);
+        void print(const char *texte, ...);
         void println(const char *texte);
         void drawLine(uint8_t xd, uint8_t yd, uint8_t xf, uint8_t yf);
         void flush();

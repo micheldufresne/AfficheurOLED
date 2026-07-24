@@ -114,14 +114,14 @@ void AfficheurOLED::setTextSize(uint8_t taille)
 }
 
 void AfficheurOLED::print(
-    const char *format,
+    const char *texte,
     ...)
 {
     char buffer[32];
 
     va_list args;
-    va_start(args, format);
-    vsnprintf(buffer, sizeof(buffer), format, args);
+    va_start(args, texte);
+    vsnprintf(buffer, sizeof(buffer), texte, args);
     va_end(args);
 
     display.print(buffer);
@@ -132,7 +132,7 @@ void AfficheurOLED::println(const char *texte)
     display.println(texte);
 }
 
-void drawLine(uint8_t xd, uint8_t yd, uint8_t xf, uint8_t yf)
+void AfficheurOLED::drawLine(uint8_t xd, uint8_t yd, uint8_t xf, uint8_t yf)
 {
     display.drawLine(xd,yd,xf,yf,SH110X_WHITE);
 }
