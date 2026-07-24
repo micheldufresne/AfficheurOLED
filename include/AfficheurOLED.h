@@ -31,7 +31,7 @@ class AfficheurOLED
             uint8_t taille,
             uint8_t x,
             uint8_t y,
-            const char *texte)
+            const char *texte);
 
         
         void setCursor(uint8_t x, uint8_t y);
