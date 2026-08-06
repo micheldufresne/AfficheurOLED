@@ -1,54 +1,56 @@
 #pragma once
 
-#include <Arduino.h>
-#include <Wire.h>
-//message d'erreur à ignorer, ils disparaissent quand on appelle la bibliothèque
-#include <Adafruit_GFX.h>
-#include <Adafruit_SH110X.h>
+#include "OLED_Config.h"
 
-class AfficheurOLED
+#if defined(OLED_SSD1306)
+        #include <Adafruit_SSD1306.h>
+        using OLED_Base = Adafruit_SSD1306;
+
+#elif defined(OLED_SH1106)
+
+        #include <Adafruit_SH110X.h>
+        using OLED_Base = Adafruit_SH1106G;
+
+#else
+
+        #error "Aucun type d'écran OLED défini"
+
+#endif
+
+
+
+class AfficheurOLED : public OLED_Base
 {
-    private:
-        static constexpr uint8_t SCREEN_WIDTH = 128;
-        static constexpr uint8_t SCREEN_HEIGHT = 64;
-        static constexpr int8_t OLED_RESET = -1;
-        static constexpr uint8_t OLED_I2C_ADDRESS = 0x3C;
-        Adafruit_SH1106G display;
-        
 
-    public:
-        AfficheurOLED();
+public:
+        using OLED_Base::OLED_Base;
 
-        void initialiser();
-
+        static constexpr uint16_t SH110X_WHITE = 1;
         void afficheMessageCentre(const char *message);
         void afficheMessageCentre(const char *message, const char *format, ...);
         void afficheDeuxLignesCentrees(const char *ligne1, const char *ligne2);
-        void clear();
+        void afficheDeuxLignesTailles(
+                uint8_t taille1,
+                const char *ligne1,
+                uint8_t taille2,
+                const char *ligne2);
 
         void afficherTexte(
-            uint8_t taille,
-            uint8_t x,
-            uint8_t y,
-            const char *format,
-            ...);
-        
-        void setCursor(uint8_t x, uint8_t y);
-        void setTextSize(uint8_t taille);
-        void print(const char *texte, ...);
-        void println(const char *texte, ...);
-        void drawLine(uint8_t xd, uint8_t yd, uint8_t xf, uint8_t yf);
-        void flush();
+                uint8_t taille,
+                uint8_t x,
+                uint8_t y,
+                const char *format,
+                ...);
+
+        void printf(const char *format, ...);
 };
 
 /*
-afficheur.afficheMessageCentre("Mode");
-
-afficheur.afficheMessageCentre("Trappe", "%d", angle);
-
-afficheur.afficheMessageCentre("Temp", "%.1f", temperature);
-
-afficheur.afficheMessageCentre("Humidité", "%.0f %%", humidite);
-
-afficheur.afficheMessageCentre("Durée", "%02d:%02d", h, min);
+afficheMessageCentre("Mode");
+afficheMessageCentre("Trappe", "%d", angle);
+afficheMessageCentre("Temp", "%.1f", temperature);
+afficheMessageCentre("Humidité", "%.0f %%", humidite);
+afficheMessageCentre("Durée", "%02d:%02d", h, min);
+afficherTexte(1, 0, 0,"HYGROMETRIE");
+afficherTexte(2, 0, 45, "%.1f%",mesures.airEntree.humiditeRelative);
 */
