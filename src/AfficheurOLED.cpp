@@ -96,7 +96,7 @@ void AfficheurOLED::afficherTexte(
 
     setTextSize(taille);
     setCursor(x, y);
-    OLED_Base::print(buffer);
+    print(buffer);
 }
 // exemple : oled.afficherTexte(2, 0, 0, "Température : %.1f°", temperature);
 // ou bien : oled.afficherTexte(1, 0, 16, "Puissance : %d W", puissance);
@@ -112,5 +112,5 @@ void AfficheurOLED::printf(const char *format, ...)
     vsnprintf(buffer, sizeof(buffer), format, args);
     va_end(args);
 
-    OLED_Base::print(buffer);
+    print(buffer);
 }
