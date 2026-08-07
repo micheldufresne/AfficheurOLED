@@ -1,5 +1,19 @@
 #include "AfficheurOLED.h"
 
+AfficheurOLED::AfficheurOLED()
+    : OLED_Base(128, 64, &Wire, -1)
+{
+}
+
+bool AfficheurOLED::begin()
+{
+#if defined(OLED_SSD1306)
+    return OLED_Base::begin(SSD1306_SWITCHCAPVCC, 0x3C);
+#else
+    return OLED_Base::begin(0x3C, true);
+#endif
+}
+
 
 void AfficheurOLED::afficheMessageCentre(const char *message,
                                              const char *format,
