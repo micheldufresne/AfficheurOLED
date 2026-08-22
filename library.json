@@ -2,6 +2,10 @@
     "name": "AfficheurOLED",
     "version": "1.2.0",
     "description": "Bibliothèque d'affichage sur écran LCD OLED",
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/micheldufresne/AfficheurOLED.git"
+    },
     "keywords": [
         "oled",
         "display",
