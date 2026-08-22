@@ -37,6 +37,7 @@ void AfficheurOLED::afficheMessageCentre(const char *message)
 void AfficheurOLED::afficheDeuxLignesCentrees(const char *ligne1,
                                               const char *ligne2)
 {
+    clearDisplay();
     setTextSize(2);
  
     int16_t x1, y1;
@@ -72,6 +73,7 @@ void AfficheurOLED::afficheDeuxLignesCentrees(const char *ligne1,
         setCursor(x, y2Pos);
         print(ligne2);
     }
+    display();
 }
 
 void AfficheurOLED::afficheDeuxLignesTailles(
@@ -80,6 +82,7 @@ void AfficheurOLED::afficheDeuxLignesTailles(
     uint8_t taille2,
     const char *ligne2)
 {
+    clearDisplay();
     setTextSize(taille1);
     int16_t x1, y1;
     uint16_t w, h;
@@ -92,6 +95,7 @@ void AfficheurOLED::afficheDeuxLignesTailles(
     getTextBounds(ligne2, 0, 0, &x1, &y1, &w, &h);
     setCursor((SCREEN_WIDTH - w) / 2, 32);
     println(ligne2);
+    display();
 }
 
 void AfficheurOLED::afficherTexte(
